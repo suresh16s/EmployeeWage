@@ -1,4 +1,3 @@
-
 public class EmployeeWage
 {
 
@@ -9,12 +8,14 @@ public static void main(String args[]){
 		final int wagePerHour = 20;
 		final int fullDayHour = 8;
 		final int dayPerMonth = 20;
+		final int totalHours = 100;
 		//variable
 		int dailyWage;
 		int dailyHours;
 		int monthlyWage = 0;
-
-		for ( int day=0 ; day<=dayPerMonth ; day++ )
+		int hours = 0;
+		int day = 0;
+		while ( hours <= totalHours && day <= dayPerMonth )
 		{
 			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 			switch (empCheck) {
@@ -28,10 +29,12 @@ public static void main(String args[]){
 					dailyHours = 0;
 					break;
 			}
+			hours += dailyHours;
+			day++;
 			dailyWage = wagePerHour * dailyHours;
 			monthlyWage += dailyWage;
 		}
-		System.out.println("Employee monthly wage is "+monthlyWage);
+		System.out.println("Employee monthly wage is "+monthlyWage+ " : "+hours+" : "+day);
 }
 
 }
