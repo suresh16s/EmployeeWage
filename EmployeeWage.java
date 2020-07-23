@@ -1,40 +1,41 @@
 public class EmployeeWage
 {
+	private static final int FULLTIME = 1;
+	private static final int PARTTIME = 2;
 
-public static void main(String args[]){
-		//constant
-		final int fullTime = 1;
-		final int partTime = 2;
-		final int wagePerHour = 20;
-		final int fullDayHour = 8;
-		final int dayPerMonth = 20;
-		final int totalHours = 100;
+	private static int employeeMonthlyWage( int wagePerHour, int fullDayHour, int dayPerMonth, int totalHours ) {
 		//variable
 		int dailyWage;
 		int dailyHours;
 		int monthlyWage = 0;
 		int hours = 0;
 		int day = 0;
+
 		while ( hours <= totalHours && day <= dayPerMonth )
 		{
 			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 			switch (empCheck) {
-				case fullTime:
+				case FULLTIME:
 					dailyHours = fullDayHour;
 					break;
-				case partTime:
+				case PARTTIME:
 					dailyHours = fullDayHour / 2;
 					break;
 				default:
 					dailyHours = 0;
 					break;
 			}
-			hours += dailyHours;
+			hours = hours + dailyHours;
 			day++;
 			dailyWage = wagePerHour * dailyHours;
-			monthlyWage += dailyWage;
-		}
-		System.out.println("Employee monthly wage is "+monthlyWage+ " : "+hours+" : "+day);
+			monthlyWage = monthlyWage + dailyWage;
+      }
+
+			return monthlyWage;
+	}
+
+	public static void main(String args[]){
+		System.out.println("Employee monthly wage is "+employeeMonthlyWage(20, 8, 20, 100));
 }
 
 }
