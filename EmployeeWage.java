@@ -1,15 +1,22 @@
+
 import java.util.*;
-class EmployeeWage {
+class ComputeEmployeeWage {
 	//constant
 	private static final int fullTime = 1;
 	private static final int partTime = 2;
+	private static final int fullDayHour = 8;
 	//variable
 	private static String company;
 	private static int wagePerHour;
 	private static int totalHours;
 	private static int dayPerMonth;
+	private static int dailyWage;
+	private static int entry=0;
 
-	ComputeEmployeeWage1( String company, int wagePerHour, int totalHours, int dayPerMonth) {
+	public static HashMap<Integer, Integer> companyWage = new HashMap<>();
+	public static ArrayList <Integer> wagePerCompany = new ArrayList <>();
+
+	ComputeEmployeeWage( String company, int wagePerHour, int totalHours, int dayPerMonth) {
 		this.company=company;
 		this.wagePerHour = wagePerHour;
 		this.totalHours = totalHours;
@@ -18,6 +25,11 @@ class EmployeeWage {
 
 	public String getCompany() {
 		return this.company;
+	}
+
+	public static int employeeDailyWage() {
+		dailyWage = fullDayHour * wagePerHour;
+		return dailyWage;
 	}
 
 	public static int employeeMonthlyWage() {
@@ -44,18 +56,34 @@ class EmployeeWage {
       }
 		return monthlyWage;
 	}
+
+	public static void dailyWageAndMonthlyWage() {
+		companyWage.put(employeeDailyWage(), employeeMonthlyWage());
+		entry++;
+	}
+
+	public static void printWage() {
+		for (int i: companyWage.keySet())
+			System.out.println(i+" : "+companyWage.get(i));
+	}
+
+	public static void companyWages() {
+		wagePerCompany.add(employeeMonthlyWage());
+	}
+
+	public static void printCompanyWage() {
+		System.out.println(wagePerCompany);
+	}
+
 }
 
-import java.util.ArrayList;
-public class Employeewage1 {
-
-	public static ArrayList <Integer> company = new ArrayList <Integer>();
+public class EmployeeWage {
 
 	public static void main(String args[]){
-		ComputeEmployeeWage1 company1 = new ComputeEmployeeWage1("Jio", 24, 120, 20);
-		ComputeEmployeeWage1 company2 = new ComputeEmployeeWage1("Blab", 20, 100, 20);
-		company.add(company1.employeeMonthlyWage());
-		company.add(company2.employeeMonthlyWage());
-		System.out.println(company);
+		ComputeEmployeeWage company1 = new ComputeEmployeeWage("Jio", 24, 120, 20);
+		company1.dailyWageAndMonthlyWage();
+		ComputeEmployeeWage company2 = new ComputeEmployeeWage("Blab", 20, 100, 20);
+		company2.dailyWageAndMonthlyWage();
+		company2.printWage();
 	}
 }
