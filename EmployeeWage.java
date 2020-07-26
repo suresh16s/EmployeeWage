@@ -1,6 +1,6 @@
-public class EmployeeWage
-{
-//constant
+import java.util.*;
+class EmployeeWage {
+	//constant
 	private static final int fullTime = 1;
 	private static final int partTime = 2;
 	//variable
@@ -9,7 +9,7 @@ public class EmployeeWage
 	private static int totalHours;
 	private static int dayPerMonth;
 
-	ComputeEmployeeWage( String company, int wagePerHour, int totalHours, int dayPerMonth) {
+	ComputeEmployeeWage1( String company, int wagePerHour, int totalHours, int dayPerMonth) {
 		this.company=company;
 		this.wagePerHour = wagePerHour;
 		this.totalHours = totalHours;
@@ -46,17 +46,16 @@ public class EmployeeWage
 	}
 }
 
+import java.util.ArrayList;
+public class Employeewage1 {
 
-
-public class EmployeeWageArray {
-
-	public static ComputeEmployeeWage companyWage[] = new ComputeEmployeeWage[2];
+	public static ArrayList <Integer> company = new ArrayList <Integer>();
 
 	public static void main(String args[]){
-		companyWage[0] = new ComputeEmployeeWage("Jio", 24, 120, 20);
-		System.out.println(companyWage[0].getCompany()+" : "+companyWage[0].employeeMonthlyWage());
-		companyWage[1] = new ComputeEmployeeWage("TCS", 20, 100, 20);
-		System.out.println(companyWage[1].getCompany()+" : "+companyWage[0].employeeMonthlyWage());
-}
-
+		ComputeEmployeeWage1 company1 = new ComputeEmployeeWage1("Jio", 24, 120, 20);
+		ComputeEmployeeWage1 company2 = new ComputeEmployeeWage1("Blab", 20, 100, 20);
+		company.add(company1.employeeMonthlyWage());
+		company.add(company2.employeeMonthlyWage());
+		System.out.println(company);
+	}
 }
