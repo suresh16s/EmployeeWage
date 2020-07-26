@@ -1,64 +1,62 @@
+public class EmployeeWage
+{
+//constant
+	private static final int fullTime = 1;
+	private static final int partTime = 2;
+	//variable
+	private static String company;
+	private static int wagePerHour;
+	private static int totalHours;
+	private static int dayPerMonth;
 
-import java.util.*;
-public class EmployeeWage {
+	ComputeEmployeeWage( String company, int wagePerHour, int totalHours, int dayPerMonth) {
+		this.company=company;
+		this.wagePerHour = wagePerHour;
+		this.totalHours = totalHours;
+		this.dayPerMonth = dayPerMonth;
+	}
 
-		public static final int IS_ABSENT = 0;
-		public static final int IS_PART_TIME = 1;
-		public static final int IS_FULL_TIME = 2;
-		
-		 static String company;
-		 static int WagePerHour;
-		 static int MaxHrInMonth;
-		 static int NumOfWorkingdays;
-	
-		EmployeeWage(String company,int WagePerHour,int MaxHrInMonth,int NumOfWorkingdays)
-		 {
-			  this.company=company;
-			  this.WagePerHour=WagePerHour;
-			  this.MaxHrInMonth=MaxHrInMonth;
-			  this.NumOfWorkingdays=NumOfWorkingdays;
-		 }
-		  public static int monthlyWage()
-		  {
-			 int empHrs=0;
-			 int empWage=0;
-			 int totalWorkingHrs = 0;
-			 int totalWorkingDays = 0;
-			 int totalWage=0;
-		
+	public String getCompany() {
+		return this.company;
+	}
+
+	public static int employeeMonthlyWage() {
+		int dailyWage = 0, dailyHours = 0, monthlyWage = 0, hours = 0, day = 0, fullDayHour = 8;
 		//computation
-		while(totalWorkingHrs <= MaxHrInMonth && totalWorkingDays <= NumOfWorkingdays)
+		while ( hours <= totalHours && day <= dayPerMonth )
 		{
-		
-			totalWorkingDays++;
-			int empCheck = (int)Math.floor(Math.random() * 10)%3;
-			switch (empCheck)
-			{
-				case 0:
-					empHrs=0;
+			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+			switch (empCheck) {
+				case fullTime:
+					dailyHours = fullDayHour;
 					break;
-				case 1:
-					empHrs=4;
+				case partTime:
+					dailyHours = fullDayHour / 2;
 					break;
-				case 2:
-					empHrs=8;
+				default:
+					dailyHours = 0;
 					break;
 			}
-			
-			totalWorkingHrs+=empHrs;
-			empWage=empHrs*WagePerHour;
-			totalWage+=empWage;
-		}
-		return totalWage;
-		
-          }
-		public static void main(String[] args) {
-			Map<String, Integer> company=new HashMap<>();
-			EmployeeWage company1 = new EmployeeWage("DMart", 20, 100, 25);
-			company.put("DMart",company1.monthlyWage());
-			EmployeeWage company2 = new EmployeeWage("Reliance", 15, 120, 30);
-			company.put("Reliance",company2.monthlyWage());
-			System.out.println("DMart : "+company.get("DMart"));
-			System.out.println("Reliance : "+company.get("Reliance"));
-		}
+			hours += dailyHours;
+			day++;
+			dailyWage = wagePerHour * dailyHours;
+			monthlyWage += dailyWage;
+      }
+		return monthlyWage;
+	}
+}
+
+
+
+public class EmployeeWageArray {
+
+	public static ComputeEmployeeWage companyWage[] = new ComputeEmployeeWage[2];
+
+	public static void main(String args[]){
+		companyWage[0] = new ComputeEmployeeWage("Jio", 24, 120, 20);
+		System.out.println(companyWage[0].getCompany()+" : "+companyWage[0].employeeMonthlyWage());
+		companyWage[1] = new ComputeEmployeeWage("TCS", 20, 100, 20);
+		System.out.println(companyWage[1].getCompany()+" : "+companyWage[0].employeeMonthlyWage());
+}
+
 }
