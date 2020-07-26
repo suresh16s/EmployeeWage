@@ -1,58 +1,64 @@
-import java.util.Scanner;
-public class EmployeeWage{
 
-	private static void employeeMonthlyWage(String companyName, int wagePerHour,int fullDayHour,int totalHours,int dayPerMonth) {
-		//variable
-		int dailyWage;
-		int dailyHours;
-		int monthlyWage = 0;
-		int hours = 0;
-		int day = 0;
+import java.util.*;
+public class EmployeeWage {
 
-		while ( hours <= totalHours && day <= dayPerMonth )
+		public static final int IS_ABSENT = 0;
+		public static final int IS_PART_TIME = 1;
+		public static final int IS_FULL_TIME = 2;
+		
+		 static String company;
+		 static int WagePerHour;
+		 static int MaxHrInMonth;
+		 static int NumOfWorkingdays;
+	
+		EmployeeWage(String company,int WagePerHour,int MaxHrInMonth,int NumOfWorkingdays)
+		 {
+			  this.company=company;
+			  this.WagePerHour=WagePerHour;
+			  this.MaxHrInMonth=MaxHrInMonth;
+			  this.NumOfWorkingdays=NumOfWorkingdays;
+		 }
+		  public static int monthlyWage()
+		  {
+			 int empHrs=0;
+			 int empWage=0;
+			 int totalWorkingHrs = 0;
+			 int totalWorkingDays = 0;
+			 int totalWage=0;
+		
+		//computation
+		while(totalWorkingHrs <= MaxHrInMonth && totalWorkingDays <= NumOfWorkingdays)
 		{
-			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
-			switch (empCheck) {
+		
+			totalWorkingDays++;
+			int empCheck = (int)Math.floor(Math.random() * 10)%3;
+			switch (empCheck)
+			{
+				case 0:
+					empHrs=0;
+					break;
 				case 1:
-					dailyHours = fullDayHour;
+					empHrs=4;
 					break;
 				case 2:
-					dailyHours = fullDayHour / 2;
-					break;
-				default:
-					dailyHours = 0;
+					empHrs=8;
 					break;
 			}
-			hours = hours + dailyHours;
-			day++;
-			dailyWage = wagePerHour * dailyHours;
-			monthlyWage = monthlyWage + dailyWage;
-      }
-
-		System.out.println("Monthly Wage of "+companyName+" is: "+monthlyWage);
-	}
-
-	public static void main(String args[]){
-		System.out.println("Enter the number of Companies::");
-		Scanner scan=new Scanner(System.in);
-		int number=scan.nextInt();
-		for (int i=1;i<=number;i++)
-		{
-		System.out.println("Enter the Company Name:");
-		String companyName=scan.next();
-		System.out.println("Enter Wage per Hour:");
-		int wagePerHour=scan.nextInt();
-		System.out.println("Enter Full day Hour:");
-		int fullDayHour=scan.nextInt();
-		System.out.println("Enter Total Hours:");
-		int totalHours=scan.nextInt();
-		System.out.println("Enter Day Per Month");
-		int dayPerMonth=scan.nextInt();
-		EmployeeWage company1 = new EmployeeWage();
-		company1.employeeMonthlyWage(companyName, wagePerHour,fullDayHour,totalHours,dayPerMonth);
-
-}
-
-}
-
+			
+			totalWorkingHrs+=empHrs;
+			empWage=empHrs*WagePerHour;
+			totalWage+=empWage;
+		}
+		return totalWage;
+		
+          }
+		public static void main(String[] args) {
+			Map<String, Integer> company=new HashMap<>();
+			EmployeeWage company1 = new EmployeeWage("DMart", 20, 100, 25);
+			company.put("DMart",company1.monthlyWage());
+			EmployeeWage company2 = new EmployeeWage("Reliance", 15, 120, 30);
+			company.put("Reliance",company2.monthlyWage());
+			System.out.println("DMart : "+company.get("DMart"));
+			System.out.println("Reliance : "+company.get("Reliance"));
+		}
 }
